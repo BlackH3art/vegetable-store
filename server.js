@@ -21,12 +21,12 @@ createServer();
 
 app.use(cors());
 app.use(jsonServer.bodyParser);
-app.get("./api", (req, resp, next) => router(req, resp, next));
+app.use("./api", (req, resp, next) => router(req, resp, next));
 
 chokidar.watch(fileName).on("change", () => {
   console.log("Ponowne wczytywanie danych usługi...");
   createServer(); 
   console.log("Zakończono ponowne wczytywanie danych usługi.");
 });
-console.log(port, fileName);
+
 app.listen(port, () => `Usługa internetowa działa na porcie ${port}`)
