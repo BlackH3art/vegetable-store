@@ -14,7 +14,7 @@ export class CategoryNavigation extends Component {
           </ToggleLink>
           )}
       </>
-     );
+     ); 
   }
 }
  
