@@ -25,7 +25,7 @@ export class CartDetails extends Component {
             <CartDetailsRows 
               cart={this.props.cart} 
               cartPrice={this.props.cartPrice} 
-              updateQuantity={this.props.updateCartQuantity} 
+              upadateCartQuantity={this.props.upadateCartQuantity} 
               removeFromCart={this.props.removeFromCart} 
             />
           </tbody>

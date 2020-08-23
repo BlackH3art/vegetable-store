@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export class CartDetailsRows extends Component {
   
-  handleChange = (product, event) => this.props.updateQuantity(product, event.target.value)
+  handleChange = (product, event) => this.props.upadateCartQuantity(product, event.target.value);
 
   render() { 
 
