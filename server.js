@@ -21,7 +21,7 @@ createServer();
 
 app.use(cors());
 app.use(jsonServer.bodyParser);
-app.use("./api", (req, resp, next) => router(req, resp, next));
+app.use("/api", (req, resp, next) => router(req, resp, next));
 
 chokidar.watch(fileName).on("change", () => {
   console.log("Ponowne wczytywanie danych usługi...");
