@@ -51,7 +51,7 @@ export const ShopConnector = connect(mapStateToProps, mapDispatchToProps)(
 
 //---------------------------------------------------------------------------------
 // problem z kategoryzowaniem, po zmianie nie sortuje produktów według kategorii
-// prawdopodobnie coś z datastore
+// prawdopodobnie coś z wrapowaniem data getter i shop
 
 
 // const mapDispatchToProps = {

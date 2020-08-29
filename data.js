@@ -20,13 +20,14 @@
 
 
 const faker = require('faker');
-const data = [];
+const products = [];
 const categories = ["vegetables", "fruits", "others", "dairy products"];
+const orders = [];
 
 faker.seed(100);
 for(let i = 1; i < 500; i++) {
   let category = faker.helpers.randomize(categories);
-  data.push({
+  products.push({
     id: i,
     name: faker.commerce.productName(),
     category: category,
@@ -35,10 +36,45 @@ for(let i = 1; i < 500; i++) {
   })
 }
 
+for(let i = 1; i < 50; i++) {
+  let firstName = faker.name.firstName();
+  let surname = faker.name.lastName();
+  let order = {
+    id: i,
+    name: `${firstName} ${surname}`,
+    email: faker.internet.email(firstName, surname),
+    address: faker.address.streetAddress(),
+    city: faker.address.city(),
+    zip: faker.address.zipCode(),
+    country: faker.address.country(),
+    shipped: faker.random.boolean(),
+    products: []
+  };
+
+  let productCount = faker.random.number({min: 1, max: 5});
+  let product_ids = [];
+
+  while (product_ids.length < productCount) {
+    let candidateID = faker.random.number({min: 1, max: products.length})
+    if (product_ids.indexOf(candidateID) === -1) {
+      product_ids.push(candidateID);
+    }
+  }
+
+  for (let j = 0; j < productCount; j++) {
+    order.products.push({
+      quantity: faker.random.number({min: 1, max: 10}),
+      product_id: product_ids[j]
+    })
+  }
+  orders.push(order)
+}
+
+
 module.exports = function () {
   return {
     categories: categories,
-    products: data,
-    orders: [],
+    products: products,
+    orders: orders,
   }
 }
