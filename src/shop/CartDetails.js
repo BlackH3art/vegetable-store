@@ -12,7 +12,7 @@ export class CartDetails extends Component {
     return ( 
       <div className="m-3">
         <h2 className="text-center">Twój koszyk</h2>
-        <table className="table table-bordered table stripped">
+        <table className="table table-bordered table-striped">
           <thead>
             <tr>
               <th>Liczba</th>
