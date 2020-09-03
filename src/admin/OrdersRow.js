@@ -20,7 +20,7 @@ export class OrdersRow extends Component {
             <button className="btn btn-sn btn-block bg-muted" onClick={this.props.toggleShipped}>
               {this.getShipping(this.props.order)}
               <span>
-                {this.props.order.shipped ? "wysłane" : "oczekujące"}
+                {this.props.order.shipped ? " wysłane" : " oczekujące"}
               </span>
             </button>
           </td>
