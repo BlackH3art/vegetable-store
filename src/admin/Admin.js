@@ -9,16 +9,26 @@ import { ConnectedProducts } from "./ProductsConnector";
 import { ProductEditor } from "./ProductEditor";
 import { ProductCreator } from "./ProductCreator";
 
-const graphQlClient = new ApolloClient({
-  uri: GraphQlUrl
-})
+import { AuthPrompt } from '../auth/AuthPrompt';
+import { authWrapper } from '../auth/AuthWrapper';
 
-export class Admin extends Component {
-
-  render() {
-    return (
+export const Admin = authWrapper(class extends Component {
+  constructor(props) {
+    super(props);
+    this.client = new ApolloClient({
+        uri: GraphQlUrl,
+        request: gqloperation => gqloperation.setContext({
+          headers: {
+            Authorization: `Bearer<${this.props.webToken}>`
+          },
+        }),
+      })
+  }
+  render() { 
+    console.log(this.props.webToken, ' webtoken ');
+    return ( 
       <>
-        <ApolloProvider client={graphQlClient}>
+        <ApolloProvider client={this.client}>
           <div className="container-fluid">
             <div className="row">
               <div className="col bg-info text-white">
@@ -29,9 +39,17 @@ export class Admin extends Component {
               <div className="col-3 p-2">
                 <ToggleLink to="/admin/orders">Zamówienia</ToggleLink>
                 <ToggleLink to="/admin/products">Produkty</ToggleLink>
+                {this.props.isAuthenticated && 
+                  <button onClick={this.props.signout} className="btn btn-block btn-secondary m-2 fixed-bottom col-3">
+                    Log out
+                  </button>
+                }
               </div>
               <div className="col-9 p-2">
                 <Switch>
+                  {
+                    !this.props.isAuthenticated && <Route component={AuthPrompt} />
+                  }
                   <Route path="/admin/orders" component={OrdersConnector} />
                   <Route path="/admin/products/create" component={ProductCreator} />
                   <Route path="/admin/products/:id" component={ProductEditor} />
@@ -43,6 +61,6 @@ export class Admin extends Component {
           </div>
         </ApolloProvider>
       </>
-    )
+    );
   }
-}
+})
